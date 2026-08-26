@@ -1,0 +1,22 @@
+---
+// A BARE <script> that imports a module. Astro extracts it into a virtual
+// module: Layout.astro?astro&type=script&index=0&lang.ts
+//
+// `is:inline` would opt the block out of Astro's processing entirely — no
+// virtual module, no bug, but the `import` stops working too.
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>astro-mre</title>
+    <script>
+      import { greet } from "../lib/greet";
+
+      greet();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

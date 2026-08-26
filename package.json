@@ -1,0 +1,19 @@
+{
+  "name": "astro-mre",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "repro": "node scripts/repro.mjs"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "14.2.5",
+    "@astrojs/svelte": "9.0.1",
+    "@sentry/astro": "10.71.0",
+    "@sentry/cloudflare": "10.71.0",
+    "astro": "7.2.7",
+    "svelte": "5.56.10",
+    "wrangler": "4.126.0"
+  }
+}

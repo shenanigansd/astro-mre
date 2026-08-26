@@ -1,0 +1,49 @@
+name: repro
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repro:
+    name: astro ${{ matrix.astro }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # 7.2.5 is the last release that renders in the affected app;
+        # 7.2.6 is where it regressed.
+        astro: ["7.2.5", "7.2.6", "7.2.7"]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24.12.0
+
+      # No cache on purpose. The failure needs a COLD Vite cache, which is
+      # exactly what a fresh CI checkout gives you and what a developer machine
+      # never has after the first run.
+      - name: Install
+        run: |
+          npm install --no-audit --no-fund
+          npm install --no-audit --no-fund --no-save astro@${{ matrix.astro }}
+
+      - name: Versions
+        run: |
+          node -p "'astro            ' + require('./node_modules/astro/package.json').version"
+          node -p "'@astrojs/cloudflare ' + require('./node_modules/@astrojs/cloudflare/package.json').version"
+          node -p "'@sentry/astro    ' + require('./node_modules/@sentry/astro/package.json').version"
+          node -p "'@astrojs/svelte  ' + require('./node_modules/@astrojs/svelte/package.json').version"
+
+      # Fails if the page NEVER renders across 10 attempts / ~30s. See README:
+      # in the affected app that is what astro >= 7.2.6 does. This reduction
+      # currently only shows the first attempt coming back empty.
+      - name: Repro
+        run: npm run repro

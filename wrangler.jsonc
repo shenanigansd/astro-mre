@@ -1,0 +1,9 @@
+{
+  "name": "astro-mre",
+  "compatibility_date": "2026-06-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "version_metadata": { "binding": "CF_VERSION_METADATA" },
+  "assets": { "binding": "ASSETS", "directory": "./dist/client" },
+  "observability": { "logs": { "enabled": true } },
+  "upload_source_maps": true
+}
