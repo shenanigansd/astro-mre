@@ -12,8 +12,8 @@
     "@astrojs/svelte": "9.0.1",
     "@sentry/astro": "10.71.0",
     "@sentry/cloudflare": "10.71.0",
-    "astro": "7.3.2",
+    "astro": "7.4.4",
     "svelte": "5.56.10",
-    "wrangler": "4.126.0"
+    "wrangler": "4.156.0"
   }
 }
